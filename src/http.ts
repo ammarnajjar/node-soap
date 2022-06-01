@@ -54,6 +54,8 @@ export class HttpClient implements IHttpClient {
     const curl = url.parse(rurl);
     if (this.options.forceHttps) {
       curl.protocol = 'https'
+      curl.port = curl.port === '80' ? '443': curl.port
+      curl.href = curl.href.replace('http:', 'https:')
     }
     const method = data ? 'POST' : 'GET';
     const secure = curl.protocol === 'https:';
