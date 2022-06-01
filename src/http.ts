@@ -52,6 +52,9 @@ export class HttpClient implements IHttpClient {
    */
   public buildRequest(rurl: string, data: any, exheaders?: IHeaders, exoptions: IExOptions = {}): any {
     const curl = url.parse(rurl);
+    if (this.options.forceHttps) {
+      curl.protocol = 'https'
+    }
     const method = data ? 'POST' : 'GET';
     const secure = curl.protocol === 'https:';
     const path = [curl.pathname || '/', curl.search || '', curl.hash || ''].join('');
